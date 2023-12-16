@@ -39,9 +39,13 @@ Stochastic Gradient Descent (SGD) là một biến thể của thuật toán Gra
 - Trả về các tham số được tối ưu hóa: Sau khi đáp ứng các tiêu chí hội tụ hoặc đạt đến số lần lặp tối đa, hãy trả về các tham số mô hình được tối ưu hóa.
 
 #### Momentum
-Gradient Descent với Momentum, để di chuyển đến vị trí mới của nghiệm (tức là hòn bi), chúng ta cần tính toán lượng thay đổi tại thời điểm t. Nếu ta giả sử đại lượng này tương đương với vận tốc v_t trong bối cảnh vật lý, thì vị trí mới của hòn bi sẽ được cập nhật theo công thức và dấu trừ ở đây thể hiện việc di chuyển ngược với độ dốc: θ_(t+1) = θ_t – v_t
+Gradient Descent với Momentum, để di chuyển đến vị trí mới của nghiệm (tức là hòn bi), chúng ta cần tính toán lượng thay đổi tại thời điểm t. Nếu ta giả sử đại lượng này tương đương với vận tốc v_t trong bối cảnh vật lý, thì vị trí mới của hòn bi sẽ được cập nhật theo công thức và dấu trừ ở đây thể hiện việc di chuyển ngược với độ dốc: 
 
-Để tính v_t, ta cần kết hợp thông tin về độ dốc (∇θJ(θ)) và vận tốc trước đó (v_(t-1), mà ta giả sử là vận tốc ban đầu v_0 = 0). Cách đơn giản nhất là tổng hợp hai đại lượng này với trọng số, được biểu diễn bằng phương trình: v_t = γ v_(t-1) + η ∇ θ f(θ)
+θ_(t+1) = θ_t – v_t
+
+Để tính v_t, ta cần kết hợp thông tin về độ dốc (∇θJ(θ)) và vận tốc trước đó (v_(t-1), mà ta giả sử là vận tốc ban đầu v_0 = 0). Cách đơn giản nhất là tổng hợp hai đại lượng này với trọng số, được biểu diễn bằng phương trình: 
+
+v_t = γ v_(t-1) + η ∇ θ f(θ)
 
 Trong đó: 
 - γ : thường được chọn trong khoảng 0.9
@@ -86,3 +90,14 @@ Trong quá trình huấn luyện, Adam duy trì một trung bình trượt của
 Phần phương sai trong Adam thích ứng tốc độ học riêng biệt cho từng tham số. Nhờ đó, Adam tự động điều chỉnh tốc độ học tập tại mỗi tham số, tạo điều kiện cho việc huấn luyện hiệu quả trên các đặc trưng có biến động lớn khác nhau.
 
 Đây là một phương pháp tối ưu hóa linh hoạt và mạnh mẽ, giúp mô hình nhanh chóng hội tụ đến giải pháp tối ưu trong quá trình huấn luyện.
+
+#### So sánh các Optimizer
+ 
+|       Optimizer       |      Ưu điểm            | Nhược điểm                            |
+| --------------------|-------------------|-------------------------------------------------|
+|    GD          |- Cơ bản, dễ hiểu, giải quyết được các vấn đề tối ưu model neural network bằng cập nhật trọng số sau mỗi vòng lặp.|- Phụ thuộc vào nghiệm khởi tạo ban đầu và learning rate.<br/>- Tốc độ học quá lớn sẽ khiến thuật toán không hội tụ, ảnh hưởng đến tốc độ training.|
+|     SGD         |- Tính toán hiệu quả, dễ thực hiện.<br/> - Hiệu quả đối với các tập dữ liệu lớn với không gian đặc trưng nhiều chiều.|- Yêu cầu nhiều lần lặp hơn (thường sẽ yêu cầu lặp nhiều hơn Gradient Descent để hội tụ).<br/> - Nhạy cảm với tốc độ học ban đầu.|
+|     Momentum         | - Giải quyết được vấn đề Gradient Descent không tiến được tới điểm global minimum mà chỉ dừng ở local minimum.|-	Mất nhiều thời gian giao động qua lại trước khi dừng hẳn, khi tới gần đích.  |
+|     Adagrad         |- Hiệu quả với tập dữ liệu thưa thớt.<br/> - Tỷ lệ học thích ứng cho mỗi tham số.|- Cần lưu trữ lịch sử gradient của tất cả tham số, nên có thể tốn kém về bộ nhớ và tính toán.<br/> - Giảm hiệu quả sau khi hội tụ (có thể tiếp tục giảm tốc độ học, dẫn đến training bị chậm)|
+|     RMSProp         |- Tốc độ học thích ứng trên mỗi tham số giúp hạn chế sự tích lũy độ dốc.<br/> - Hiệu quả đối với các mục tiêu không cố định.|- Có thể có tốc độ hội tụ chậm trong một số trường hợp (ví dụ: tốc độ học quá cao hoặc quá thấp sẽ gây ra vấn đề về tốc độ hội tụ,...)  |
+|       Adam       |- Áp dụng được cho các tập dữ liệu lớn và mô hình nhiều chiều.<br/> - Khái quát hóa tốt.|- Phải điều chỉnh cẩn thận các hyperparameter.  |
