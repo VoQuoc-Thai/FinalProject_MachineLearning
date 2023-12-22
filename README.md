@@ -61,7 +61,7 @@ Trình bày một bài nghiên cứu, đánh giá của em về các vấn đề
   - Sử dụng kiểm soát Learning Rate để tránh overfitting
   - Sử dụng lớp Dropout và EarlyStopping callback để tránh overfitting
   - Sử dụng Gradient Clipping để tránh overfitting
-* Các kĩ thuật để đánh giá các giá trị sai trong việc huấn luyện mô hình
+### Các kĩ thuật để đánh giá các giá trị sai trong việc huấn luyện mô hình
   - Đánh giá độ chính xác, precision, recall, F1-score, và các độ đo hiệu suất khác trên tập kiểm thử.
   - Tạo ma trận nhầm lẫn để xem xét cụ thể là mô hình của bạn đang làm gì sai.
   - Xem xét một số mẫu mà mô hình dự đoán sai để hiểu tại sao chúng được phân loại sai.
